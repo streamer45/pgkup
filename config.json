@@ -1,0 +1,10 @@
+{
+  "db": "ambrosian",
+  "path": "/home/streamer45/pgkup",
+  "backups": {
+    "hours": 24,
+    "days": 7,
+    "weeks": 4,
+    "months": 12
+  }
+}

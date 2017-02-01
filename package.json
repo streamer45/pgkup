@@ -4,6 +4,7 @@
   "description": "A minimalistic PostgreSQL backup utility",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/streamer45/pgkup/issues"
   },
-  "homepage": "https://github.com/streamer45/pgkup#readme"
+  "homepage": "https://github.com/streamer45/pgkup#readme",
+  "dependencies": {
+    "chalk": "1.1.3"
+  }
 }
