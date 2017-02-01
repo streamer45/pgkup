@@ -23,7 +23,8 @@ function validateConfig(config) {
     warn('no backups object defined in config, using defaults');
     config.backups = {
       hours: 7,
-      weeks: 7,
+      days: 7,
+      weeks: 4,
       months: 12
     };
   }
@@ -58,10 +59,10 @@ function makeBackupPlan(config) {
     destroy: []
   };
   const durations = {
-    'hours': 60 * 60 * 1000,
-    'days': 60 * 60 * 24 * 1000,
-    'weeks': 60 * 60 * 24 * 7 * 1000,
-    'months': 60 * 60 * 24 * 30 * 1000
+    hours: 60 * 60 * 1000,
+    days: 60 * 60 * 24 * 1000,
+    weeks: 60 * 60 * 24 * 7 * 1000,
+    months: 60 * 60 * 24 * 30 * 1000
   };
   const now = new Date().getTime();
   for (const dir in config.backups) {
