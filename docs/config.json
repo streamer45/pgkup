@@ -1,5 +1,5 @@
 {
-  "db": "ambrosian",
+  "db": "mydb",
   "path": "/home/streamer45/pgkup",
   "backups": {
     "hours": 24,
