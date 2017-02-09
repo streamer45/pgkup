@@ -22,7 +22,7 @@ function validateConfig(config) {
   if (!config.backups) {
     warn('no backups object defined in config, using defaults');
     config.backups = {
-      hours: 7,
+      hours: 24,
       days: 7,
       weeks: 4,
       months: 12
@@ -90,14 +90,20 @@ function makeBackupPlan(config) {
       if (a.ts < b.ts) return 1;
       if (a.ts > b.ts) return -1;
     });
-    if (backups.length === 0 || (now - backups[0].ts) > durations[dir]) {
-      plan.create.push(config.path + '/' + dir + '/' + config.db + '_' +
-       now + '.sql.gz');
-    }
-    if (config[dir] && timestamps.length >= config[dir]) {
-      for (let i = config[dir] - 1; i < backups.length; ++i) {
+    const diff = now - backups[0].ts - durations[dir];
+    if (config.backups[dir] && backups.length > config.backups[dir]) {
+      for (let i = config.backups[dir]; i < backups.length; ++i) {
         plan.destroy.push(backups[i].filename);
       }
+    }
+    if (backups.length === 0 || diff > -300000) {
+      plan.create.push(config.path + '/' + dir + '/' + config.db + '_' +
+       now + '.sql.gz');
+      if (config.backups[dir] && backups.length > config.backups[dir]) {
+        plan.destroy.push(backups[config.backups[dir] - 1].filename);
+      }
+    } else {
+      //console.log(now, backups[0].ts, durations[dir], diff);
     }
   }
   return plan;
